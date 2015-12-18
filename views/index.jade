@@ -1,0 +1,22 @@
+extends layout
+
+block style
+  link(rel='stylesheet', href='/styles/index.css')
+
+block content
+  header
+    nav(class='navbar navbar-inverse navbar-fixed-top')
+      div(class="container-fluid")
+        div(class="navbar-header")
+          a(class="navbar-brand" href="#")
+            span Sample
+  section(class='container-fluid')
+    h1= title
+    p Welcome to #{title}
+    div#twitter
+    div#facebook
+    div#share
+    div#rss
+
+block script
+  script(type='text/javascript', src='/scripts/index.js')

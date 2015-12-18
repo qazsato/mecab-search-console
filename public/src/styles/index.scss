@@ -1,0 +1,19 @@
+@import 'public/src/components/bootstrap/css/bootstrap';
+@import 'public/src/styles/common/sprite/sprite';
+
+body {
+  padding-top: 70px;
+}
+
+#twitter {
+  @include sprite($twitter);
+}
+#facebook {
+  @include sprite($facebook);
+}
+#share {
+  @include sprite($share);
+}
+#rss {
+  @include sprite($rss);
+}

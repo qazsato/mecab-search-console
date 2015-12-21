@@ -4,11 +4,11 @@
     "node": "4.2.1"
   },
   "scripts": {
-    "start" : "NODE_ENV=production node ./bin/www",
-    "prod"  : "NODE_ENV=production gulp build && NODE_ENV=production node ./bin/www",
-    "dev"   : "node-dev --debug ./bin/www & gulp browse",
-    "build" : "gulp build",
-    "debug" : "node-inspector"
+    "start": "NODE_ENV=production node ./bin/www",
+    "prod": "NODE_ENV=production gulp build && NODE_ENV=production node ./bin/www",
+    "dev": "node-dev --debug ./bin/www & gulp browse",
+    "build": "gulp build",
+    "debug": "node-inspector"
   },
   "dependencies": {
     "async": "1.5.0",
@@ -19,6 +19,7 @@
     "debug": "2.2.0",
     "express": "4.13.1",
     "jade": "1.11.0",
+    "mecab-async": "^0.1.0",
     "morgan": "1.6.1",
     "request": "2.65.0",
     "serve-favicon": "2.3.0"

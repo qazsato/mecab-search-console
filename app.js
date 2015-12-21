@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public/dist'), {maxAge: 86400000 * 
 
 // define routes
 app.use('/', require('./routes/index'));
-app.use('/users', require('./routes/users'));
+app.use('/mecab', require('./routes/mecab'));
 
 // error handlers
 app.use((req, res, next) => {

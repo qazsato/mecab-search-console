@@ -1,19 +1,23 @@
 @import 'public/src/components/bootstrap/css/bootstrap';
-@import 'public/src/styles/common/sprite/sprite';
 
 body {
   padding-top: 70px;
 }
 
-#twitter {
-  @include sprite($twitter);
+#drop-zone {
+  border: 2px dashed #bbb;
+  border-radius: 5px;
+  padding: 150px 0;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  color: #bbb;
 }
-#facebook {
-  @include sprite($facebook);
-}
-#share {
-  @include sprite($share);
-}
-#rss {
-  @include sprite($rss);
+
+#file-list {
+  padding: 0;
+  li {
+    padding-bottom: 20px;
+  }
 }

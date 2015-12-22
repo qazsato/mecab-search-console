@@ -4,6 +4,13 @@ body {
   padding-top: 70px;
 }
 
+.github-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10000;
+}
+
 #drop-zone {
   border: 2px dashed #bbb;
   border-radius: 5px;

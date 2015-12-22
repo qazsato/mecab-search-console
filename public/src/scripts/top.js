@@ -3,13 +3,13 @@ window.jQuery = $ = require('../components/jquery/jquery-2.1.4.min');
 require('../components/bootstrap/js/bootstrap');
 
 $(function () {
-  $("#drop-zone").on("dragover", function (e) {
+  $('#drop-zone').on('dragover', function (e) {
     e.stopPropagation();
     e.preventDefault();
-    e.originalEvent.dataTransfer.dropEffect = "copy";
+    e.originalEvent.dataTransfer.dropEffect = 'copy';
   });
 
-  $("#drop-zone").on("drop", function (e) {
+  $('#drop-zone').on('drop', function (e) {
     e.stopPropagation();
     e.preventDefault();
     var file = e.originalEvent.dataTransfer.files[0];
@@ -22,8 +22,8 @@ $(function () {
         .css('width', '0%')
         .text('0%');
       $('input[name="data"]').val('');
-      $('button[type="submit"]').attr("disabled", "disabled");
-      $("#file-list").empty();
+      $('button[type="submit"]').attr('disabled', 'disabled');
+      $('#file-list').empty();
     };
 
     reader.onprogress = function (e) {
@@ -40,16 +40,16 @@ $(function () {
 
     reader.onload = function (e) {
       $('input[name="data"]').val(e.target.result);
-      $('button[type="submit"]').removeAttr("disabled");
-      var list = "<li>" +
-                    "<strong>" + escape(file.name) + "</strong>" +
-                    " (" + file.type + ")" +
-                    " - " + file.size + " bytes," +
-                    " last modified: " + file.lastModifiedDate.toLocaleDateString() +
-                  "</li>";
-      $("#file-list").append(list);
+      $('button[type="submit"]').removeAttr('disabled');
+      var list = '<li>' +
+                    '<strong>' + escape(file.name) + '</strong>' +
+                    ' (' + file.type + ')' +
+                    ' - ' + file.size + ' bytes,' +
+                    ' last modified: ' + file.lastModifiedDate.toLocaleDateString() +
+                  '</li>';
+      $('#file-list').append(list);
     };
 
-    reader.readAsText(file, "UTF-8");
+    reader.readAsText(file, 'UTF-8');
   });
 });

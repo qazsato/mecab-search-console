@@ -6,12 +6,11 @@ const Mecab = require('mecab-async');
 const mecab = new Mecab();
 
 router.post('/', (req, res, next) => {
-  let data = req.body.data;
-  mecab.parse(data, function(err, result) {
+  mecab.parse(req.body.data, function(err, result) {
     let json = {};
     result.forEach(function(element){
-      if (element[1] == '名詞') {
-        var key = element[0].trim();
+      if (element[1] === '名詞') {
+        let key = element[0].trim();
         if (json[key]) {
           json[key] = json[key] + 1;
         } else {
@@ -19,9 +18,19 @@ router.post('/', (req, res, next) => {
         }
       }
     });
+    let data = [];
+    for (var key in json) {
+      data.push({
+        'word': key,
+        'num': json[key]
+      });
+    }
+    data.sort(function(a,b){return a.num - b.num;});
+    data.reverse();
+
     res.render('result', {
       title: 'Mecab Search Console',
-      data: json
+      data: data
     });
   });
 });

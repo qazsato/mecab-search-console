@@ -27,8 +27,8 @@ app.use(compression());
 app.use(express.static(path.join(__dirname, 'public/dist'), {maxAge: 86400000 * 30}));
 
 // define routes
-app.use('/', require('./routes/index'));
-app.use('/mecab', require('./routes/mecab'));
+app.use('/', require('./routes/top'));
+app.use('/result', require('./routes/result'));
 
 // error handlers
 app.use((req, res, next) => {
@@ -38,7 +38,7 @@ app.use((req, res, next) => {
 });
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
-  res.render('error', {
+  res.render('./common/error', {
     message: err.message,
     error: app.get('env') === 'development' ? err : {}
   });

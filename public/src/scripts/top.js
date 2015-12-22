@@ -3,7 +3,6 @@ window.jQuery = $ = require('../components/jquery/jquery-2.1.4.min');
 require('../components/bootstrap/js/bootstrap');
 
 $(function () {
-  var text = "";
   $("#drop-zone").on("dragover", function (e) {
     e.stopPropagation();
     e.preventDefault();
@@ -16,10 +15,20 @@ $(function () {
     var file = e.originalEvent.dataTransfer.files[0];
     var reader = new FileReader();
 
+    reader.onloadstart = function(e) {
+      // UI初期化
+      $('.progress-bar')
+        .attr('aria-valuenow', 0)
+        .css('width', '0%')
+        .text('0%');
+      $('input[name="data"]').val('');
+      $('button[type="submit"]').attr("disabled", "disabled");
+      $("#file-list").empty();
+    };
+
     reader.onprogress = function (e) {
       if (e.lengthComputable) {
         var percentLoaded = Math.round((e.loaded / e.total) * 100);
-        console.log(percentLoaded);
         if (percentLoaded <= 100) {
           $('.progress-bar')
             .attr('aria-valuenow', percentLoaded)
@@ -30,8 +39,8 @@ $(function () {
     };
 
     reader.onload = function (e) {
-      text = e.target.result;
-      $("#import-btn").removeAttr("disabled");
+      $('input[name="data"]').val(e.target.result);
+      $('button[type="submit"]').removeAttr("disabled");
       var list = "<li>" +
                     "<strong>" + escape(file.name) + "</strong>" +
                     " (" + file.type + ")" +
@@ -41,19 +50,6 @@ $(function () {
       $("#file-list").append(list);
     };
 
-    reader.readAsText(file, "Shift_JIS");
-  });
-
-  $("#import-btn").on("click", function () {
-    $.ajax({
-      type: "GET",
-      url: "/mecab",
-      data: {
-        text: text
-      },
-      success: function (res) {
-        console.log(res);
-      }
-    });
+    reader.readAsText(file, "UTF-8");
   });
 });

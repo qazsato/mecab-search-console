@@ -4,6 +4,7 @@
     "node": "4.2.1"
   },
   "scripts": {
+    "postinstall": "NODE_ENV=production gulp build",
     "start": "NODE_ENV=production node ./bin/www",
     "prod": "NODE_ENV=production gulp build && NODE_ENV=production node ./bin/www",
     "dev": "node-dev --debug ./bin/www & gulp browse",
@@ -22,9 +23,7 @@
     "mecab-async": "^0.1.0",
     "morgan": "1.6.1",
     "request": "2.65.0",
-    "serve-favicon": "2.3.0"
-  },
-  "devDependencies": {
+    "serve-favicon": "2.3.0",
     "browser-sync": "2.9.11",
     "browserify": "12.0.1",
     "del": "2.0.2",

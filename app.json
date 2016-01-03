@@ -1,0 +1,7 @@
+{
+  "name": "mecab search console",
+  "repository": "https://github.com/qaz-s/mecab-search-console",
+  "env": {
+    "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-multi.git"
+  }
+}

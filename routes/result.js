@@ -6,9 +6,10 @@ const async = require('async');
 const Mecab = require('mecab-async');
 const mecab = new Mecab();
 
-let json = {};
+let json;
 
 router.post('/', (req, res, next) => {
+  json = {};  // リクエスト時に初期化
   let jsonArr = csv2json(req.body.data);
   let tasks = [];
   let data = [];

@@ -15,13 +15,20 @@ router.post('/', (req, res, next) => {
   let data = [];
   for (let i = 0; i < jsonArr.length; i++) {
     let word = jsonArr[i]['クエリ数'];
-    let num = jsonArr[i]['クリック数'];
-    let task = getMecabTask(word, num);
+    let clickNum = jsonArr[i]['クリック数'];
+    let dispNum = jsonArr[i]['表示回数'];
+    let task = getMecabTask(word, clickNum, dispNum);
     tasks.push(task);
   }
   async.waterfall(tasks, function () {
     for (var key in json) {
-      data.push({'word': key, 'num': json[key]});
+      var ctr = (json[key].clickNum / json[key].dispNum * 100).toFixed(2);
+      data.push({
+        'word': key,
+        'clickNum': json[key].clickNum,
+        'dispNum': json[key].dispNum,
+        'ctr': ctr + '%'
+      });
     }
     data.sort(function(a,b){return a.num - b.num;});
     data.reverse();
@@ -35,19 +42,26 @@ router.post('/', (req, res, next) => {
 /**
  * 形態素解析を実施するタスクを取得します
  * @param  {String} word クエリ数
- * @param  {String} num  クリック数
+ * @param  {String} clickNum  クリック数
+ * @param  {String} dispNum  表示回数
  * @return async用タスク
  */
-let getMecabTask = (word, num) => {
+let getMecabTask = (word, clickNum, dispNum) => {
   return function (nextFetch) {
     mecab.parse(word, function(err, result) {
       result.forEach(function(element){
         if (element[1] === '名詞') {
           let key = element[0].trim();
           if (json[key]) {
-            json[key] = parseInt(json[key]) + parseInt(num);
+            json[key] = {
+              'clickNum': parseInt(json[key].clickNum) + parseInt(clickNum),
+              'dispNum': parseInt(json[key].dispNum) + parseInt(dispNum)
+            };
           } else {
-            json[key] = parseInt(num);
+            json[key] = {
+              'clickNum': parseInt(clickNum),
+              'dispNum': parseInt(dispNum)
+            };
           }
         }
       });

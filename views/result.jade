@@ -8,13 +8,17 @@ block content
     table(class="table table-striped")
       thead
         tr
-          th ワード
-          th 検索流入数
+          th クエリ
+          th クリック数
+          th 表示回数
+          th CTR
       tbody
       - for (var i = 0; i < data.length; i++)
         tr
           td= data[i].word
-          td= data[i].num
+          td= data[i].clickNum
+          td= data[i].dispNum
+          td= data[i].ctr
 
 block script
   script(type="text/javascript", src="/scripts/result.js")

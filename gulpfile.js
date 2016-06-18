@@ -2,8 +2,6 @@ var gulp        = require('gulp');
 var $           = require('gulp-load-plugins')();
 var del         = require('del');
 var runSequence = require('run-sequence');
-var browserify  = require('browserify');
-var through2    = require('through2');
 var fs          = require('fs');
 var path        = require('path');
 var browserSync = require('browser-sync');
@@ -40,17 +38,8 @@ var DEST = {
  * このタスクは開発・本番ともに使用します。(build/watchタスクでの使用を想定)
  */
 gulp.task('js', function () {
-  var browserified = through2.obj(function(file, encode, callback){
-    browserify(file.path).bundle(function(err, res){
-      file.contents = res;
-      callback(null, file);
-    });
-  });
   gulp.src(SRC.JS)
       .pipe($.plumber({errorHandler: $.notify.onError('Error: <%= error.message %>')}))
-      // .pipe($.sourcemaps.init())
-      .pipe(browserified)
-      // .pipe($.sourcemaps.write())
       .pipe($.if(ENV === 'production', $.uglify()))
       .pipe(gulp.dest(DEST.ROOT));
 });
@@ -77,11 +66,9 @@ gulp.task('css', function () {
 gulp.task('sass', function () {
   gulp.src(SRC.SASS)
       .pipe($.plumber({errorHandler: $.notify.onError('Error: <%= error.message %>')}))
-      // .pipe($.sourcemaps.init())
       .pipe($.sass())
       .pipe($.if(ENV === 'production', $.cssmin()))
       .pipe($.autoprefixer({browsers: AUTOPREFIXER_BROWSERS}))
-      // .pipe($.sourcemaps.write())
       .pipe(gulp.dest(DEST.ROOT));
 });
 

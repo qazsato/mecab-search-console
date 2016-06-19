@@ -5,13 +5,21 @@ block style
 
 block content
   section(class="container-fluid")
-    table(class="table table-striped tablesorter")
+    button(id="copy-btn" type="button" class="btn btn-primary btn-sm pull-right" data-toggle="popover" data-content="Copy to clipboard") Copy
+    table(id="result-table" class="table table-striped tablesorter")
       thead
         tr
-          th クエリ
-          th クリック数
-          th 表示回数
-          th CTR
+          th
+            span クエリ
+          th
+            span クリック数
+            i(class="glyphicon glyphicon-resize-vertical")
+          th
+            span 表示回数
+            i(class="glyphicon glyphicon-resize-vertical")
+          th
+            span CTR
+            i(class="glyphicon glyphicon-resize-vertical")
       tbody
         - for (var i = 0; i < data.length; i++)
           tr

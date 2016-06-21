@@ -30,7 +30,7 @@ router.post('/', (req, res, next) => {
         'ctr': ctr + '%'
       });
     }
-    data.sort(function(a,b){return a.num - b.num;});
+    data.sort(function(a,b){return a.clickNum - b.clickNum;});
     data.reverse();
     res.render('result', {
       title: 'Mecab Search Console',
